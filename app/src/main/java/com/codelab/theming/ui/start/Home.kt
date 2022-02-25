@@ -34,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -169,12 +170,12 @@ private fun PostMetadata(
          )
         post.tags.forEachIndexed { index, tag ->
             withStyle(tagStyle) {
-                append(" ${tag.toUpperCase()} ")
+                append(" ${tag.uppercase()} ")
             }
             if (index != 0) {
                 append(tagDivider)
             }
-            append(" ${tag.uppercase(Locale.getDefault())} ")
+           // append(" ${tag.uppercase(Locale.getDefault())} ")
         }
     }
     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
@@ -198,6 +199,7 @@ fun PostItem(
         icon = {
             Image(
                 painter = painterResource(post.imageThumbId),
+                modifier = Modifier.clip(shape = MaterialTheme.shapes.small),
                 contentDescription = null
             )
         },
